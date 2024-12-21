@@ -17,6 +17,7 @@ public class ElevatorsSimulator {
         thread2.start();
 
         Random random = new Random();
+        // int reqId = 0;
 
         while (true) {
             int startFloor = random.nextInt(10);
@@ -25,7 +26,8 @@ public class ElevatorsSimulator {
                 endFloor = random.nextInt(10);
             } while (endFloor == startFloor); // проверка на совпадения начального и конечного этажа
 
-            Request request = new Request(startFloor, endFloor);
+            Request request = new Request(startFloor, endFloor/*, reqId*/);
+
 
             // Выбор лифта для добавления заявки
             if (elevator1.isFree() && elevator2.isFree()) {
@@ -51,7 +53,9 @@ public class ElevatorsSimulator {
             }
 
 
-            System.out.println("Вызов: с " + startFloor + " на " + endFloor);
+            System.out.println("Вызов: с " + startFloor + " на " + endFloor/* + "\t\t" + reqId*/);
+
+            // reqId++;
 
             try {
                 Thread.sleep(3000);

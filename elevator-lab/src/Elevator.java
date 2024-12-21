@@ -29,6 +29,7 @@ public class Elevator implements Runnable {
                 // высадка
                 if (!dropOffRequests.isEmpty() && dropOffRequests.contains(currentFloor)) {
                     dropOff();
+                    continue;
                 }
 
                 // подбор попути
@@ -37,6 +38,7 @@ public class Elevator implements Runnable {
                 Request request = pickupRequests.poll();
                 if (request != null) {
                     pickup(request);
+                    continue;
                 }
 
                 // движение лифта
@@ -50,7 +52,7 @@ public class Elevator implements Runnable {
 
 
     private void pickup(Request request) throws InterruptedException {
-        System.out.println("Л" + id + " идет на " + request.getStartFloor());
+        System.out.println("Л" + id + " идет на " + request.getStartFloor()/* + "\t\t" + request.getId()*/);
         moveToFloor(request.getStartFloor());
         System.out.println("Л" + id + " забрал на " + currentFloor);
         dropOffRequests.offer(request.getEndFloor());
@@ -65,7 +67,7 @@ public class Elevator implements Runnable {
         for (Request request : pickupRequests) {
             if ((request.getStartFloor() == currentFloor) && ((movingUp && request.getEndFloor() > currentFloor) || (!movingUp && request.getEndFloor() < currentFloor))) {
                 pickupRequests.remove(request);
-                System.out.println("Л" + id + " подобрал с " + request.getStartFloor() + " на " + request.getEndFloor());
+                System.out.println("Л" + id + " подобрал с " + request.getStartFloor() + " на " + request.getEndFloor()/*  + "\t\t" + request.getId()*/);
                 dropOffRequests.offer(request.getEndFloor());
             }
         }
